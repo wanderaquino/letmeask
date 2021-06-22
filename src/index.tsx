@@ -1,16 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import {Button} from './components/Button';
+import {Home} from './pages/Home';
 import './services/firebase';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    <Button text="Clique aqui!!!"/>
-    <Button/>
-    <Button/>
-    <Button/>
+    <Home />
   </React.StrictMode>,
   document.getElementById('root')
 );
