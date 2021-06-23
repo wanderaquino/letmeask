@@ -5,6 +5,7 @@ import  "../styles/auth.scss";
 import { Link } from "react-router-dom";
 import {AuthContext} from "../contexts/AuthContext";
 import {useContext, FormEvent, useState} from "react";
+import { firebaseDb } from "../services/firebase";
 
 
 export function NewRoom() {
@@ -14,6 +15,17 @@ export function NewRoom() {
 
     async function handleCreateRoom(event: FormEvent){
         event.preventDefault();
+
+        if (newRoom.trim() === "") {
+            return;
+        }
+        
+        const roomRef = firebaseDb.ref("rooms"); 
+        const firebaseRoom = await roomRef.push({
+            title: newRoom,
+            authorId: user?.id,
+        });
+        console.log(`Success!!! ${firebaseRoom}`)
     }
 
     return (
@@ -32,7 +44,7 @@ export function NewRoom() {
                     <input
                         type="text"
                         placeholder="Nome da Sala"
-                        onChange={(event) => event.target.value}
+                        onChange={(event) => setNewRoom(event.target.value)}
                     />
                 <Button type="submit">Criar sala</Button>
                 </form>
