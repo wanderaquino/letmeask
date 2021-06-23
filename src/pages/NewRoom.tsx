@@ -4,11 +4,17 @@ import logoImg from "../assets/images/logo.svg";
 import  "../styles/auth.scss";
 import { Link } from "react-router-dom";
 import {AuthContext} from "../contexts/AuthContext";
-import {useContext} from "react";
+import {useContext, FormEvent, useState} from "react";
 
 
 export function NewRoom() {
     const {user} = useContext(AuthContext);
+
+    const [newRoom, setNewRoom] = useState("");
+
+    async function handleCreateRoom(event: FormEvent){
+        event.preventDefault();
+    }
 
     return (
         <div id="page-auth">
@@ -22,10 +28,11 @@ export function NewRoom() {
                 <img src={logoImg} alt="Imagem do logo LetmeAsk"></img>
                 <h1>{user?.name}</h1>
                 <h2>Criar uma nova sala</h2>
-                <form>
+                <form onSubmit={handleCreateRoom}>
                     <input
                         type="text"
                         placeholder="Nome da Sala"
+                        onChange={(event) => event.target.value}
                     />
                 <Button type="submit">Criar sala</Button>
                 </form>
