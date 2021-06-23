@@ -4,14 +4,15 @@ import logoImg from "../assets/images/logo.svg";
 import  "../styles/auth.scss";
 import { Link } from "react-router-dom";
 import {AuthContext} from "../contexts/AuthContext";
-import {useContext, FormEvent, useState} from "react";
+import {useContext, useState, FormEvent} from "react";
+import {useHistory} from "react-router";
 import { firebaseDb } from "../services/firebase";
 
 
 export function NewRoom() {
     const {user} = useContext(AuthContext);
-
     const [newRoom, setNewRoom] = useState("");
+    const history = useHistory();
 
     async function handleCreateRoom(event: FormEvent){
         event.preventDefault();
@@ -25,7 +26,9 @@ export function NewRoom() {
             title: newRoom,
             authorId: user?.id,
         });
-        console.log(`Success!!! ${firebaseRoom}`)
+        console.log(`Success!!! ${firebaseRoom}`);
+
+        history.push(`/rooms/${firebaseRoom.key}`);
     }
 
     return (
