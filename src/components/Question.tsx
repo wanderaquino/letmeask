@@ -1,4 +1,5 @@
 import "../styles/question.scss";
+import {ReactNode} from "react";
 
 type QuestionProps = {
     content: string,
@@ -6,6 +7,7 @@ type QuestionProps = {
         name: string,
         avatar: string
     }
+    children: ReactNode
 }
 
 export function Question ({content, author}: QuestionProps) {
