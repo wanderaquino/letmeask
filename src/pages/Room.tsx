@@ -7,6 +7,7 @@ import { FormEvent, useState } from "react";
 import { useAuth } from "../hooks/useAuths";
 import { firebaseDb } from "../services/firebase";
 import { useEffect } from "react";
+import { Question } from "../components/Question";
 
 
 type RoomParams = {
@@ -117,7 +118,13 @@ export function Room () {
                         <Button type="submit" disabled={!user} onClick={handleSendQuestion}>Enviar sua pergunta</Button>
                     </div>
                 </form>
-                {JSON.stringify(questions)}
+                <div className="question-list">
+                {questions.map((question => {
+                    return(
+                    <Question key={question.id} content={question.content} author={question.author}></Question>
+                    )
+                    }))}
+                </div>
             </main>
         </div>
     )
