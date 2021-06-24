@@ -30,13 +30,10 @@ export function Room () {
             await firebaseDb.ref(`/rooms/${roomId}/questions/${questionId}/likes/`).push({authorId: user?.id});
             console.log(`Liked!!!! ${questionId}`);
         }
-
-        
     }
 
     async function handleSendQuestion (event: FormEvent) {
         event.preventDefault();
-
         if(newQuestion.trim()==="") {
             return;
         }
