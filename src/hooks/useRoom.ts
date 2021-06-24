@@ -10,7 +10,9 @@ type Questions = {
     }
     content: string,
     isAnswered: boolean,
-    isHighlighted: boolean
+    isHighlighted: boolean,
+    likeCount: number,
+    hasLiked: boolean
 };
 
 type FirebaseQuestion = Record <string, {
