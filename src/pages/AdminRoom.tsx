@@ -3,9 +3,6 @@ import { Button } from "../components/Button";
 import {RoomCode} from "../components/RoomCode";
 import "../styles/room.scss";
 import {useParams} from "react-router-dom";
-import { FormEvent, useState } from "react";
-import { useAuth } from "../hooks/useAuths";
-import { firebaseDb } from "../services/firebase";
 import { Question } from "../components/Question";
 import { useRoom } from "../hooks/useRoom";
 
@@ -15,36 +12,8 @@ type RoomParams = {
 }
 
 export function AdminRoom () {
-    const {user} = useAuth();
     const params = useParams <RoomParams> ();
-    const [newQuestion, setNewQuestion] = useState("");
     const {title,questions} = useRoom(params.id);
-
-    async function handleSendQuestion (event: FormEvent) {
-        event.preventDefault();
-
-        if(newQuestion.trim()==="") {
-            return;
-        }
-        if(!user) {
-            throw new Error("Need to login");
-        }
-
-        const question = {
-            content: newQuestion,
-            author: {
-                name: user.name,
-                avatar: user.avatar
-            },
-            isHighlighted: false,
-            isAnswered: false
-        }
-
-        await firebaseDb.ref(`rooms/${params.id}/questions`).push(question);
-        console.log(`Success ${newQuestion}`);
-
-        setNewQuestion("");
-    }
 
     return (
         <div id="page-room">
